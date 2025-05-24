@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Business Content Generation: Claude 3 vs Gemini 2.5 Pro vs ChatGPT Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #073B4C; /* Midnight Blue/Dark Teal */
+            color: #F0F4F8; /* Light Gray for base text on dark bg */
+        }
+        .section-title {
+            color: #FFD166; /* Sunglow Yellow */
+        }
+        .card {
+            background-color: #FFFFFF;
+            color: #073B4C; /* Dark text for cards */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Default max-width, can be overridden by Tailwind */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-responsive table {
+            width: 100%;
+            min-width: 600px; /* Ensure table has min-width for scrolling */
+        }
+        .table-responsive th, .table-responsive td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0; /* Tailwind gray-300 */
+            text-align: left;
+        }
+        .table-responsive th {
+            background-color: #118AB2; /* Blue Green */
+            color: #FFFFFF;
+        }
+        .stat-number {
+            font-size: 3rem; /* Tailwind text-5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: #06D6A0; /* Emerald Green */
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem; /* pl-10 */
+            padding-bottom: 1.5rem; /* pb-6 */
+            border-left: 2px solid #FFD166; /* Sunglow Yellow */
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem; /* Adjust to center on line */
+            top: 0.25rem;
+            height: 1rem; /* h-4 */
+            width: 1rem; /* w-4 */
+            background-color: #FF6B6B; /* Coral Red */
+            border-radius: 9999px; /* rounded-full */
+        }
+        /* Energetic & Playful Palette:
+           #FF6B6B (Coral Red)
+           #FFD166 (Sunglow Yellow)
+           #06D6A0 (Emerald Green)
+           #118AB2 (Blue Green)
+           #073B4C (Midnight Blue/Dark Teal) - Background
+           #FFFFFF (White) - Card Background
+           #F0F4F8 (Light Gray) - Text on Dark BG
+        */
+    </style>
+</head>
+<body class="antialiased">
+    <header class="py-12 md:py-20 text-center bg-gradient-to-br from-[#118AB2] to-[#073B4C]">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">The AI Content Generation Showdown</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-[#FFD166]">Claude 3 vs. Gemini 2.5 Pro vs. ChatGPT Pro</h2>
+            <p class="text-lg md:text-xl text-[#F0F4F8] max-w-3xl mx-auto mb-8">An In-Depth Look at Leading LLMs for Business Content Generation (May 2025)</p>
+            <div class="card max-w-md mx-auto bg-[#073B4C] border border-[#118AB2]">
+                <p class="text-xl text-[#F0F4F8] mb-2"><a href="https://aiservices.review/review/tag/generative-ai-tools">Generative AI is</a></p>
+                <p class="stat-number">Rapidly</p>
+                <p class="text-xl text-[#F0F4F8] mt-2">Transforming Business Operations</p>
+            </div>
+            
+            <p class="text-sm text-[#F0F4F8]">Infographic based on "An Honest, Unbiased Comparison of Claude 3, Gemini 2.5 Pro, and ChatGPT Pro for Business Content Generation" Report Date: May 23, 2025. Prepared by <a href="https://aiservices.review/">AI Services Review</a>.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <nav class="sticky top-0 bg-[#073B4C] z-10 py-3 mb-8 shadow-lg rounded-md hidden md:block">
+            <ul class="flex justify-center space-x-4 md:space-x-8">
+                <li><a href="#introduction" class="text-[#FFD166] hover:text-white font-semibold">Intro</a></li>
+                <li><a href="#core-capabilities" class="text-[#FFD166] hover:text-white font-semibold">Capabilities</a></li>
+                <li><a href="#features" class="text-[#FFD166] hover:text-white font-semibold">Features</a></li>
+                <li><a href="#performance" class="text-[#FFD166] hover:text-white font-semibold">Performance</a></li>
+                <li><a href="#use-cases" class="text-[#FFD166] hover:text-white font-semibold">Use Cases</a></li>
+                <li><a href="#pricing" class="text-[#FFD166] hover:text-white font-semibold">Pricing</a></li>
+                <li><a href="#verdict" class="text-[#FFD166] hover:text-white font-semibold">Verdict</a></li>
+            </ul>
+        </nav>
+
+        <section id="introduction" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">1. The AI Landscape & The Contenders</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Generative Artificial Intelligence (AI) is rapidly transforming business operations, particularly in content creation. The continuous evolution of Large Language Models (LLMs) presents significant opportunities and complex choices for enterprises. This report compares three leading LLM families: Anthropic's Claude 3, Google's Gemini 2.5 Pro, and OpenAI's ChatGPT Pro.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold mb-3 text-[#118AB2]">Claude 3 (Anthropic)</h3>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Key Models:</strong> Opus (most capable), Sonnet (balanced), Haiku (fastest).</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Focus:</strong> Helpful, honest, harmless AI; AI safety.</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Evolution:</strong> Improved reasoning, math, coding, vision, non-English fluency. Features "Artifacts" for real-time previews.</p>
+                    <p><strong class="text-[#073B4C]">Business Relevance:</strong> Task automation, R&D acceleration, financial forecasting.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold mb-3 text-[#06D6A0]">Gemini 2.5 Pro (Google)</h3>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Key Models:</strong> Gemini 2.5 Pro (flagship), Flash.</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Focus:</strong> Native multimodality (text, code, image, audio, video), Google ecosystem integration.</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Evolution:</strong> Enhanced reasoning ("Deep Think"), 1M token context window, advanced security.</p>
+                    <p><strong class="text-[#073B4C]">Business Relevance:</strong> Complex data analysis, software development, process automation, auditable AI.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold mb-3 text-[#FF6B6B]">ChatGPT Pro (OpenAI)</h3>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Key Models:</strong> GPT-4o (omni), GPT-4.5 (preview), GPT-4.1 (coding).</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Focus:</strong> Versatile generation, user experience, multimodal interaction.</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Evolution:</strong> Scaled knowledge, enhanced reasoning (o1 series), comprehensive multimodality (GPT-4o: hear, see, speak).</p>
+                    <p><strong class="text-[#073B4C]">Business Relevance:</strong> Productivity enhancement, quality improvement, task acceleration (e.g., debugging).</p>
+                </div>
+            </div>
+            
+            <div class="card mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">Key Model Release Timeline (Recent Updates)</h3>
+                <div class="relative">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-semibold text-[#118AB2]">March 2024: Claude 3 Family Launch</p>
+                        <p class="text-sm">Anthropic introduces Opus, Sonnet, and Haiku.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-semibold text-[#118AB2]">June 2024: Claude 3.5 Sonnet Released</p>
+                        <p class="text-sm">Introduces "Artifacts" feature.</p>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-semibold text-[#FF6B6B]">August 2024: GPT-4o API Update</p>
+                        <p class="text-sm">OpenAI enhances its flagship omni-model API.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-semibold text-[#118AB2]">February 2025: Claude 3.7 Sonnet Launch</p>
+                        <p class="text-sm">Further enhancements to the Sonnet line.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-semibold text-[#FF6B6B]">February 2025: GPT-4.5 Research Preview</p>
+                        <p class="text-sm">OpenAI releases its next-gen preview model.</p>
+                    </div>
+                    <div class="timeline-item" style="border-left: 2px solid transparent;"> <div class="timeline-dot" style="background-color: #06D6A0;"></div>
+                        <p class="font-semibold text-[#06D6A0]">March 2025: Gemini 2.5 Pro Launch</p>
+                        <p class="text-sm">Google's flagship model with 1M token context.</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">This timeline highlights key recent announcements relevant to the models discussed. The AI field is characterized by rapid iteration.</p>
+            </div>
+
+            <div class="card">
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">Key Model Specifications Snapshot</h3>
+                <div class="table-responsive">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Claude 3 (Opus/Sonnet)</th>
+                                <th>Gemini 2.5 Pro</th>
+                                <th>ChatGPT Pro (GPT-4o/4.5/4.1)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Developer</td><td>Anthropic</td><td>Google DeepMind</td><td>OpenAI</td></tr>
+                            <tr><td>Latest Flagship</td><td>Claude 3.7 Sonnet / Opus</td><td>Gemini 2.5 Pro</td><td>GPT-4o / GPT-4.5 (Preview) / GPT-4.1</td></tr>
+                            <tr><td>Max Context Window (Tokens)</td><td>200K (Opus), 1M (specific cases)</td><td>1M (aiming for 2M)</td><td>128K (GPT-4o/4.5/4.1)</td></tr>
+                            <tr><td>Primary Multimodality</td><td>Image input, Text output</td><td>Native multi-input (text, image, audio, video, code)</td><td>GPT-4o: Native audio, image, text I/O. GPT-4.5: Text, Image input.</td></tr>
+                            <tr><td>Knowledge Cutoff</td><td>August 2023 (Claude 3)</td><td>Likely recent (not explicitly stated for 2.5 Pro)</td><td>Oct 2023 (GPT-4o API). GPT-4.5 likely more recent.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">Technical specifications provide a baseline, but real-world performance and user experience are also crucial. Claude, for example, has faced user engagement challenges despite strong specs.</p>
+            </div>
+        </section>
+
+        <section id="core-capabilities" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">2. Core Capabilities Showdown</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Foundational LLM capabilities—text generation, summarization, translation, and Q&A—are essential for business content. Performance varies by task and model.</p>
+                <div class="chart-container h-[400px] md:h-[450px] max-w-3xl">
+                    <canvas id="coreCapabilitiesChart"></canvas>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">This chart represents a qualitative summary of perceived strengths based on the report. "Excellent" (3), "Very Good" (2), "Good" (1). Specific test outcomes can vary.</p>
+                <ul class="mt-4 space-y-2">
+                    <li><strong class="text-[#FF6B6B]">Text Generation:</strong> ChatGPT often praised for creative flair and natural language. Gemini strong for transforming complex info. Claude noted for structure and clarity.</li>
+                    <li><strong class="text-[#FFD166]">Summarization:</strong> Gemini won a news summary test. GPT-4o strong for meeting summaries. Claude excels with very long documents.</li>
+                    <li><strong class="text-[#06D6A0]">Translation:</strong> Gemini showed strength in nuanced translation. GPT-4 Turbo and Claude also strong, with Claude offering structured, polite translations.</li>
+                    <li><strong class="text-[#118AB2]">Q&A:</strong> ChatGPT won for explaining complex topics simply. Gemini good for scientific Q&A. Claude excels in document Q&A.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="features" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">3. Feature Deep Dive</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Beyond core text, features like custom instructions, API access, and data analysis capabilities shape practical business utility.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">Customization & Fine-Tuning</h3>
+                    <p class="mb-2"><strong class="text-[#073B4C]">Custom Instructions:</strong> All platforms support system prompts/custom instructions for brand voice and style (Claude System Prompts, Gemini System Instructions/Prompt Tuning, ChatGPT Custom GPTs).</p>
+                    <p><strong class="text-[#073B4C]">Fine-Tuning:</strong> Available across platforms (Claude Haiku on AWS, Gemini 2.0 on Vertex AI, various OpenAI models via API/Azure), typically requiring JSONL data. This allows for deeper specialization but is more resource-intensive.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#06D6A0]">API Access & SDKs</h3>
+                    <p class="mb-2"><strong class="text-[#073B4C]">API Availability:</strong> Claude via Anthropic/AWS/Vertex AI. Gemini via Vertex AI/Developer API. OpenAI via direct API/Azure.</p>
+                    <p class="mb-2"><strong class="text-[#073B4C]">SDKs:</strong> Claude (Python, TS). Gemini (Python, Go, Node.js, Java). OpenAI (Python, JS).</p>
+                    <p><strong class="text-[#073B4C]">Documentation Quality (Perceived):</strong> OpenAI often cited as "best-in-class." Claude "clean." Gemini "decent but fragmented."</p>
+                </div>
+            </div>
+            <div class="card mt-6">
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">Data Analysis Features Radar</h3>
+                 <p class="text-center text-sm mb-4">Comparing key data analysis related features. Scale: 0 (Limited/None) to 3 (Strong/Extensive).</p>
+                <div class="chart-container h-[350px] md:h-[400px] max-w-xl">
+                    <canvas id="dataAnalysisRadarChart"></canvas>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 mt-6 text-sm">
+                    <div><strong class="text-[#FF6B6B]">Claude 3:</strong> Strong vision, excellent long document analysis (200K-1M token context), tool use, "Artifacts" for previews.</div>
+                    <div><strong class="text-[#06D6A0]">Gemini 2.5 Pro:</strong> Native multimodality (1M token context for diverse data), auditability via "Thought Summaries," NotebookLM integration, unstructured data extraction.</div>
+                    <div><strong class="text-[#118AB2]">ChatGPT Pro:</strong> File uploads & charting, GPT-4o multimodal input, "Deep Research" & "Canvas" (Enterprise/Pro), Advanced Data Analysis (128K token context).</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="performance" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">4. Performance Analysis</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Performance hinges on accuracy, coherence, creativity, speed, and consistency. Benchmark results vary by test and model version.</p>
+                <div class="chart-container h-[450px] md:h-[500px] max-w-4xl">
+                    <canvas id="benchmarkChart"></canvas>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">Selected benchmark scores (higher is generally better, except for Hallucination Rate). Source: Synthesized from report (Tables 4). GPQA = General Physics Q&A. AIME = Math. SWE-Bench = Agentic Coding.</p>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li><strong class="text-[#073B4C]">Accuracy & Hallucinations:</strong> Critical for business. Gemini 2.5 Pro reported low hallucination rates (~5%) in one comparison, a potential advantage. Claude 3.7 (~10%), GPT-4o (~8%) in the same test.</li>
+                    <li><strong class="text-[#073B4C]">Coherence & Creativity:</strong> GPT-4.5/4o often praised for fluency and polish. Gemini strong in creative writing twists. Claude known for structured output.</li>
+                    <li><strong class="text-[#073B4C]">Speed:</strong> Haiku (Claude), Flash (Gemini), and GPT-4o are faster options within their families. Opus and GPT-4.5 can be slower.</li>
+                    <li><strong class="text-[#073B4C]">Consistency:</strong> Important for reliability. GPT-4o showed strong context maintenance in meeting summaries.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="use-cases" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">5. Business Use Cases</h2>
+            <div class="card">
+                <p class="text-lg mb-4">The "best" model depends on the specific task. Here's a look at common business content needs:</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">Marketing Copy</h4>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">ChatGPT Pro (GPT-4o):</strong> Engaging hooks, creative examples.</p>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">Claude 3 (Sonnet):</strong> Balanced headlines, brand voice adherence.</p>
+                    <p class="text-sm"><strong class="text-[#073B4C]">Gemini 2.5 Pro:</strong> Storytelling for social media comments.</p>
+                </div>
+                <div class="card">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FFD166]">Report Generation</h4>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">Claude 3 (Opus):</strong> Excels with very long documents, high recall for financial/legal reports.</p>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">Gemini 2.5 Pro:</strong> Holistic analysis of diverse data, contextualized investment analyses.</p>
+                    <p class="text-sm"><strong class="text-[#073B4C]">ChatGPT Pro (GPT-4.1/4o):</strong> Structured logical content, insight extraction.</p>
+                </div>
+                <div class="card">
+                    <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">Email Drafting</h4>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">Gemini 2.5 Pro:</strong> Seamless Gmail integration.</p>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">ChatGPT Pro (GPT-4.5/4o):</strong> Empathetic tone (GPT-4.5), general drafting.</p>
+                    <p class="text-sm"><strong class="text-[#073B4C]">Claude 3 (Sonnet):</strong> Adherence to brand voice, ethical considerations.</p>
+                </div>
+                <div class="card">
+                    <h4 class="font-semibold text-lg mb-2 text-[#118AB2]">Code Assistance / Tech Docs</h4>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">ChatGPT Pro (GPT-4.1):</strong> Leading in many coding benchmarks.</p>
+                    <p class="text-sm mb-1"><strong class="text-[#073B4C]">Gemini 2.5 Pro:</strong> Strong for code analysis, architecture, project generation.</p>
+                    <p class="text-sm"><strong class="text-[#073B4C]">Claude 3 (Opus/Sonnet):</strong> Good for production code, debugging, strong on SWE-Bench (3.7 Sonnet).</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="pricing" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">7. Pricing & Plans</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Costs are critical. UI access is usually via subscription, API via per-token charges. Prices are dynamic.</p>
+                <div class="grid md:grid-cols-3 gap-6 mb-8 text-center">
+                    <div class="p-4 border border-[#FF6B6B] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#FF6B6B]">Claude Pro</h4>
+                        <p class="text-2xl font-bold text-[#073B4C]">$20/mo</p>
+                        <p class="text-sm">(or $17/mo annually)</p>
+                    </div>
+                    <div class="p-4 border border-[#06D6A0] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#06D6A0]">Google AI Pro</h4>
+                        <p class="text-2xl font-bold text-[#073B4C]">$19.99/mo</p>
+                        <p class="text-sm">(Gemini 2.5 Pro access)</p>
+                    </div>
+                    <div class="p-4 border border-[#118AB2] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#118AB2]">ChatGPT Plus</h4>
+                        <p class="text-2xl font-bold text-[#073B4C]">$20/mo</p>
+                        <p class="text-sm">(GPT-4o, GPT-4.1, GPT-4.5 preview)</p>
+                    </div>
+                </div>
+                <p class="text-center mb-6">Team and Enterprise plans offer higher limits and features at different price points.</p>
+                
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">API Cost Comparison (per 1 Million Tokens)</h3>
+                <div class="chart-container h-[500px] md:h-[550px] max-w-4xl">
+                    <canvas id="apiCostsChart"></canvas>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">API costs for flagship models can be substantial. Cost-effective alternatives exist within each vendor's portfolio. Output tokens are often more expensive. Hidden costs (caching, rate limits) can apply.</p>
+            </div>
+        </section>
+
+        <section id="usability" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">6. Usability & User Experience</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Effective use depends on UI intuitiveness, prompt engineering ease, and learning curve.</p>
+                 <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-md mb-1 text-[#FF6B6B]">Claude UI (claude.ai)</h4>
+                        <p class="text-sm">Clean, sophisticated, direct. Good for structured output. May require patience for depth.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-md mb-1 text-[#06D6A0]">Gemini UI (gemini.google.com)</h4>
+                        <p class="text-sm">Intuitive, Google Search-like. Source check feature. Advanced features might have steeper learning curve.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-md mb-1 text-[#118AB2]">ChatGPT UI (chat.openai.com)</h4>
+                        <p class="text-sm">User-friendly, simple navigation. Flexible. Often "plug-and-play" for basic tasks.</p>
+                    </div>
+                </div>
+                <p class="mt-6 mb-2"><strong class="text-[#073B4C]">Prompt Engineering:</strong> Crucial for all. Precise instructions, role definition, context, and constraints improve output. Few-shot prompting helps. Gemini's "thinking model" can aid refinement. GPT-4.1 has strong instruction following.</p>
+                <p><strong class="text-[#073B4C]">Learning Curve:</strong> ChatGPT often lowest initial barrier. All require learning for advanced use. Specialized outputs demand skilled prompting across platforms.</p>
+            </div>
+        </section>
+
+        <section id="safety-ethics" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">9. AI Safety & Ethics</h2>
+            <div class="card">
+                <p class="text-lg mb-4">Safety, ethics, data privacy, and responsible use are paramount for business adoption.</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-4 border border-gray-300 rounded-md">
+                        <h4 class="font-semibold text-lg mb-2 text-[#FF6B6B]">Anthropic (Claude 3)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Focus: "Helpful, honest, harmless."</li>
+                            <li>Framework: Responsible Scaling Policy, Constitutional AI.</li>
+                            <li>Business Data (API/Enterprise): Not used for training by default.</li>
+                            <li>Key Prohibitions: Political campaigning, surveillance.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border border-gray-300 rounded-md">
+                        <h4 class="font-semibold text-lg mb-2 text-[#06D6A0]">Google (Gemini 2.5 Pro)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Framework: Google AI Principles, Safety Attribute Filtering.</li>
+                            <li>Acknowledges bias amplification.</li>
+                            <li>Business Data (Paid API/Workspace): Not used for training by default.</li>
+                            <li>Key Prohibitions: Developing competing models, clinical medical advice.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border border-gray-300 rounded-md">
+                        <h4 class="font-semibold text-lg mb-2 text-[#118AB2]">OpenAI (ChatGPT Pro)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Framework: Universal Usage Policies, Safety Training.</li>
+                            <li>SOC 2 Type 2 Compliance for business products.</li>
+                            <li>Business Data (API/Enterprise): Not used for training by default.</li>
+                            <li>Key Prohibitions: Tailored legal/medical/financial advice without oversight, disinformation.</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">All vendors commit to not training on business data from enterprise/API offerings by default. Bias detection remains an ongoing challenge requiring human oversight.</p>
+            </div>
+        </section>
+
+        <section id="strengths-differentiators" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">10 & 11. Strengths, Weaknesses & Key Differentiators</h2>
+            <div class="card mb-8">
+                 <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">At a Glance: Strengths & Weaknesses</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-sm">
+                    <div>
+                        <h4 class="font-bold text-[#FF6B6B] mb-1">Claude 3</h4>
+                        <p><strong class="text-green-600">Strengths:</strong> Long context/recall, structured output, ethical focus, vision, "Artifacts."</p>
+                        <p><strong class="text-red-600">Weaknesses:</strong> Market perception, rate limits/Opus cost, perceived slower innovation.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[#06D6A0] mb-1">Gemini 2.5 Pro</h4>
+                        <p><strong class="text-green-600">Strengths:</strong> Advanced reasoning, native multimodality (1M context), coding, Google ecosystem integration, auditability.</p>
+                        <p><strong class="text-red-600">Weaknesses:</strong> Complexity/learning curve, fragmented docs (perceived), reliance on Google ecosystem for full potential.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[#118AB2] mb-1">ChatGPT Pro</h4>
+                        <p><strong class="text-green-600">Strengths:</strong> Versatility, fluency/polish, coding (GPT-4.1), mature ecosystem, GPT-4o multimodality.</p>
+                        <p><strong class="text-red-600">Weaknesses:</strong> GPT-4.5 reasoning concerns, high cost of some top models, context window smaller than some.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="text-xl font-semibold mb-4 text-center text-[#073B4C]">Key Differentiators Snapshot</h3>
+                <div class="table-responsive">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Claude 3</th>
+                                <th>Gemini 2.5 Pro</th>
+                                <th>ChatGPT Pro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Primary Strength Focus</td><td>Ethical AI, Long-Context Analysis, Structured Output</td><td>Advanced Multimodal Reasoning, Google Ecosystem Integration</td><td>Versatility, Creative Generation, UX & Polish, Coding (GPT-4.1)</td></tr>
+                            <tr><td>Max Context Window</td><td>200K - 1M (Opus)</td><td>1M (2.5 Pro)</td><td>128K (GPT-4o/4.5/4.1)</td></tr>
+                            <tr><td>Standout Feature</td><td>"Near-perfect recall", "Artifacts"</td><td>"Deep Think", Native 1M token multimodal context</td><td>GPT-4o voice/vision, Custom GPTs</td></tr>
+                            <tr><td>Flagship API Output Cost/MTok</td><td>Opus: $75</td><td>2.5 Pro (>200k): $15</td><td>GPT-4o: $10 (GPT-4.5 Preview: $150)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="verdict" class="mb-12">
+            <h2 class="text-3xl font-bold section-title mb-6 text-center">12. Final Verdict & Recommendation</h2>
+            <div class="card">
+                <p class="text-lg mb-4">There's no single "best" AI; the optimal choice depends on specific business needs, priorities, and context. A portfolio approach or selecting based on dominant use case is recommended.</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-4 border border-[#FF6B6B] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#FF6B6B] mb-2">Consider Claude 3 (Opus/Sonnet) If:</h4>
+                        <p class="text-sm">Your priority is deep analysis of very long documents, high recall, and ethically sound, structured content (e.g., legal, compliance, in-depth research).</p>
+                    </div>
+                    <div class="p-4 border border-[#06D6A0] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#06D6A0] mb-2">Consider Gemini 2.5 Pro If:</h4>
+                        <p class="text-sm">You're in the Google ecosystem, need advanced native multimodal generation, or complex data analysis on diverse datasets.</p>
+                    </div>
+                    <div class="p-4 border border-[#118AB2] rounded-md">
+                        <h4 class="font-semibold text-lg text-[#118AB2] mb-2">Consider ChatGPT Pro (GPT-4o/4.1) If:</h4>
+                        <p class="text-sm">You need versatility for creative and general tasks, a polished UX, strong coding support, and value a mature ecosystem.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-center">Businesses should conduct pilot projects with their specific data and prompts to make the most informed decision in this dynamic AI landscape.</p>
+            </div>
+        </section>
+        
+        <footer class="text-center py-8 mt-12 border-t border-[#118AB2]">
+            <p class="text-xs text-gray-400 mt-2">This infographic is for informational purposes only. All model capabilities and pricing are subject to change by vendors.</p>
+        </footer>
+    </main>
+
+    <script>
+        const CHART_COLORS = {
+            red: '#FF6B6B',
+            yellow: '#FFD166',
+            green: '#06D6A0',
+            blue: '#118AB2',
+            darkBlue: '#073B4C',
+            white: '#FFFFFF',
+            lightGray: '#F0F4F8'
+        };
+
+        function wrapLabels(labels, maxWidth = 16) {
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > maxWidth) {
+                    const words = label.split(' ');
+                    let currentLine = '';
+                    const newLabel = [];
+                    words.forEach(word => {
+                        if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                            newLabel.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    newLabel.push(currentLine.trim());
+                    return newLabel;
+                }
+                return label;
+            });
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: CHART_COLORS.lightGray
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: CHART_COLORS.lightGray },
+                    grid: { color: 'rgba(240, 244, 248, 0.2)' }
+                },
+                x: {
+                    ticks: { color: CHART_COLORS.lightGray },
+                    grid: { color: 'rgba(240, 244, 248, 0.2)' }
+                }
+            }
+        };
+
+        // Chart 1: Core Capabilities
+        const coreCapabilitiesCtx = document.getElementById('coreCapabilitiesChart').getContext('2d');
+        new Chart(coreCapabilitiesCtx, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(['Text Gen (General)', 'Text Gen (Creative)', 'Summarization (Short)', 'Summarization (Long)', 'Translation', 'Q&A (Factual)', 'Q&A (Explanatory)']),
+                datasets: [
+                    {
+                        label: 'Claude 3',
+                        data: [2, 1, 1, 3, 2, 2, 1], // Excellent:3, Very Good:2, Good:1
+                        backgroundColor: CHART_COLORS.red,
+                    },
+                    {
+                        label: 'Gemini 2.5 Pro',
+                        data: [2, 2, 3, 2, 3, 2, 1],
+                        backgroundColor: CHART_COLORS.green,
+                    },
+                    {
+                        label: 'ChatGPT Pro',
+                        data: [3, 3, 2, 2, 2, 2, 3],
+                        backgroundColor: CHART_COLORS.blue,
+                    }
+                ]
+            },
+            options: { ...commonChartOptions, indexAxis: 'y' }
+        });
+
+        // Chart 2: Data Analysis Radar Chart
+        const dataAnalysisRadarCtx = document.getElementById('dataAnalysisRadarChart').getContext('2d');
+        new Chart(dataAnalysisRadarCtx, {
+            type: 'radar',
+            data: {
+                labels: wrapLabels(['Vision/Image Analysis', 'Long Document Analysis', 'Tool Use/Function Calling', 'Native Multimodality', 'Auditability/Transparency', 'File Upload & Analysis']),
+                datasets: [
+                    {
+                        label: 'Claude 3',
+                        data: [2, 3, 2, 1, 1, 2], // Scale 0-3
+                        borderColor: CHART_COLORS.red,
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                        pointBackgroundColor: CHART_COLORS.red,
+                    },
+                    {
+                        label: 'Gemini 2.5 Pro',
+                        data: [3, 3, 2, 3, 2, 3],
+                        borderColor: CHART_COLORS.green,
+                        backgroundColor: 'rgba(6, 214, 160, 0.2)',
+                        pointBackgroundColor: CHART_COLORS.green,
+                    },
+                    {
+                        label: 'ChatGPT Pro',
+                        data: [2, 1, 2, 2, 1, 3],
+                        borderColor: CHART_COLORS.blue,
+                        backgroundColor: 'rgba(17, 138, 178, 0.2)',
+                        pointBackgroundColor: CHART_COLORS.blue,
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(240, 244, 248, 0.2)' },
+                        grid: { color: 'rgba(240, 244, 248, 0.2)' },
+                        pointLabels: { color: CHART_COLORS.lightGray, font: {size: 10} },
+                        ticks: { color: CHART_COLORS.lightGray, backdropColor: 'transparent', stepSize: 1 },
+                        min: 0,
+                        max: 3
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: { position: 'top', labels: {color: CHART_COLORS.lightGray} }
+                }
+            }
+        });
+        
+        // Chart 3: Benchmark Chart
+        const benchmarkCtx = document.getElementById('benchmarkChart').getContext('2d');
+        new Chart(benchmarkCtx, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(['GPQA (Physics Q&A %)', 'AIME (Math 2025 %)', 'SWE-Bench (Agentic Coding %)', 'Hallucination Rate (Approx. %)']),
+                datasets: [
+                    {
+                        label: 'Claude 3 (Opus/3.7 Sonnet)',
+                        data: [78.2, 49.5, 70.3, 10],
+                        backgroundColor: CHART_COLORS.red,
+                        borderColor: CHART_COLORS.red,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Gemini 2.5 Pro',
+                        data: [84.0, 86.7, 63.8, 5],
+                        backgroundColor: CHART_COLORS.green,
+                        borderColor: CHART_COLORS.green,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'ChatGPT Pro (GPT-4.5/4.1/o3-mini)',
+                        data: [71.4, 88.9, 54.6, 8], // Using GPT-4.1 for SWE, o3 for AIME, GPT-4o for Hallucination
+                        backgroundColor: CHART_COLORS.blue,
+                        borderColor: CHART_COLORS.blue,
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    y: { ...commonChartOptions.scales.y, title: { display: true, text: 'Score (%)', color: CHART_COLORS.lightGray } },
+                    x: { ...commonChartOptions.scales.x }
+                }
+            }
+        });
+
+        // Chart 4: API Costs Chart
+        const apiCostsCtx = document.getElementById('apiCostsChart').getContext('2d');
+        new Chart(apiCostsCtx, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels([
+                    'Flagship Input Cost ($/MTok)', 'Flagship Output Cost ($/MTok)', 
+                    'Cost-Effective Input Cost ($/MTok)', 'Cost-Effective Output Cost ($/MTok)'
+                ]),
+                datasets: [
+                    {
+                        label: 'Claude 3 (Opus / 3.5 Haiku)',
+                        data: [15, 75, 0.80, 4.00],
+                        backgroundColor: CHART_COLORS.red,
+                        borderColor: CHART_COLORS.red,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Gemini 2.5 Pro (Pro >200k / Flash)',
+                        data: [2.50, 15.00, 0.15, 0.60],
+                        backgroundColor: CHART_COLORS.green,
+                        borderColor: CHART_COLORS.green,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'ChatGPT Pro (GPT-4o / GPT-4o-mini)',
+                        data: [2.50, 10.00, 0.15, 0.60], // GPT-4.5 Preview is much higher, using GPT-4o as primary flagship API
+                        backgroundColor: CHART_COLORS.blue,
+                        borderColor: CHART_COLORS.blue,
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                 scales: {
+                    y: { ...commonChartOptions.scales.y, type: 'logarithmic', title: { display: true, text: 'Cost ($ per 1M Tokens) - Log Scale', color: CHART_COLORS.lightGray } },
+                    x: { ...commonChartOptions.scales.x }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    tooltip: {
+                        callbacks: {
+                            ...commonChartOptions.plugins.tooltip.callbacks,
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += '$' + context.parsed.y.toFixed(2);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
